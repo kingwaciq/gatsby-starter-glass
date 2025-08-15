@@ -12,18 +12,9 @@ module.exports = {
       twitter: `yinkakun`,
     },
     socialLinks: [
-      {
-        name: "github",
-        url: "https://github.com",
-      },
-      {
-        name: "twitter",
-        url: "https://twitter.com",
-      },
-      {
-        name: "instagram",
-        url: "https://instagram.com",
-      },
+      { name: "github", url: "https://github.com" },
+      { name: "twitter", url: "https://twitter.com" },
+      { name: "instagram", url: "https://instagram.com" },
     ],
   },
   plugins: [
@@ -34,24 +25,15 @@ module.exports = {
     "gatsby-plugin-use-dark-mode",
     {
       resolve: "gatsby-source-filesystem",
-      options: {
-        name: `media`,
-        path: `${__dirname}/static/media`,
-      },
+      options: { name: `media`, path: `${__dirname}/static/media` },
     },
     {
       resolve: "gatsby-source-filesystem",
-      options: {
-        name: "pages",
-        path: `${__dirname}/content/pages`,
-      },
+      options: { name: "pages", path: `${__dirname}/content/pages` },
     },
     {
       resolve: "gatsby-source-filesystem",
-      options: {
-        name: "posts",
-        path: `${__dirname}/content/posts`,
-      },
+      options: { name: "posts", path: `${__dirname}/content/posts` },
     },
     {
       resolve: `gatsby-transformer-remark`,
@@ -59,21 +41,15 @@ module.exports = {
         plugins: [
           {
             resolve: `gatsby-remark-relative-images`,
-            options: {
-              staticFolderName: "static",
-            },
+            options: { staticFolderName: "static" },
           },
           {
             resolve: `gatsby-remark-images`,
-            options: {
-              maxWidth: 630,
-            },
+            options: { maxWidth: 630 },
           },
           {
             resolve: `gatsby-remark-responsive-iframe`,
-            options: {
-              wrapperStyle: `margin-bottom: 1.0725rem`,
-            },
+            options: { wrapperStyle: `margin-bottom: 1.0725rem` },
           },
           `gatsby-remark-prismjs`,
           `gatsby-remark-copy-linked-files`,
@@ -108,17 +84,15 @@ module.exports = {
         `,
         feeds: [
           {
-            serialize: ({ query: { site, allMarkdownRemark } }) => {
-              return allMarkdownRemark.nodes.map((node) => {
-                return Object.assign({}, node.frontmatter, {
-                  description: node.excerpt,
-                  date: node.frontmatter.date,
-                  url: site.siteMetadata.siteUrl + node.fields.slug,
-                  guid: site.siteMetadata.siteUrl + node.fields.slug,
-                  custom_elements: [{ "content:encoded": node.html }],
-                });
-              });
-            },
+            serialize: ({ query: { site, allMarkdownRemark } }) =>
+              allMarkdownRemark.nodes.map((node) => ({
+                ...node.frontmatter,
+                description: node.excerpt,
+                date: node.frontmatter.date,
+                url: site.siteMetadata.siteUrl + node.fields.slug,
+                guid: site.siteMetadata.siteUrl + node.fields.slug,
+                custom_elements: [{ "content:encoded": node.html }],
+              })),
             query: `
               {
                 allMarkdownRemark(
@@ -127,13 +101,8 @@ module.exports = {
                   nodes {
                     excerpt
                     html
-                    fields {
-                      slug
-                    }
-                    frontmatter {
-                      title
-                      date
-                    }
+                    fields { slug }
+                    frontmatter { title date }
                   }
                 }
               }
@@ -164,5 +133,6 @@ module.exports = {
       },
     },
     `gatsby-plugin-react-helmet`,
+    `gatsby-plugin-netlify` // ✅ دا کرښه زیاته کړه
   ],
-};
+}; 
